@@ -1,0 +1,113 @@
+from IPython.display import HTML, display
+
+html = """
+<style>
+/* --- Estilo general tipo app móvil --- */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4faff;
+  margin: 0;
+  padding: 0;
+}
+.app-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.screen {
+  display: none;
+  padding: 20px;
+  text-align: center;
+}
+.active {
+  display: block;
+  animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 16px;
+  font-size: 20px;
+  color: white;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+button:active {
+  transform: scale(0.97);
+}
+.big-red {
+  background-color: #C0392B;
+  font-size: 28px;
+  padding: 28px;
+  margin-top: 180px;
+  border-radius: 22px;
+  font-weight: bold;
+}
+.tramite { background-color: #2E86C1; }
+.familia { background-color: #1ABC9C; }
+.recordar { background-color: #F39C12; }
+.mentor { background-color: #9B59B6; }
+.seguridad { background-color: #E74C3C; }
+
+.footer {
+  font-size: 12px;
+  color: #555;
+  margin-top: 16px;
+}
+</style>
+
+<div class="app-container">
+  
+  <!-- Pantalla de inicio -->
+  <div id="inicio" class="screen active">
+    <h2 style="margin-top:40px;">👴 Bienvenido a</h2>
+    <h1 style="color:#2E86C1;">Mentor Digital Acompañado (MDA)</h1>
+    <p style="font-size:16px;color:#333;margin:10px 20px;">
+      Tu aplicación de ayuda y acompañamiento digital para adultos mayores.
+    </p>
+    <button class="big-red" onclick="mostrarMenu()">🆘 AYUDA MAYOR</button>
+    <p class="footer">Universidad Católica de Colombia<br>Paula Rojas & Jaime Roca – 2025</p>
+  </div>
+  
+  <!-- Menú principal -->
+  <div id="menu" class="screen">
+    <img src="https://cdn-icons-png.flaticon.com/512/2722/2722066.png" width="100" style="margin-top:10px;">
+    <h2 style="color:#2E86C1;">MENÚ PRINCIPAL</h2>
+    <p style="color:#444;">Selecciona lo que necesitas:</p>
+    
+    <button class="tramite" onclick="alert('Tu mentor te guiará paso a paso para realizar el trámite o pago.')">💳 Hacer un trámite o pago</button>
+    <button class="familia" onclick="alert('Conectando videollamada con tu familia (simulación).')">📞 Comunicarme con mi familia</button>
+    <button class="recordar" onclick="alert('Recordatorio de cita médica o medicamento activado.')">💊 Recordar cita o medicamento</button>
+    <button class="mentor" onclick="alert('Tu Mentor Digital está disponible. Iniciando acompañamiento inmediato.')">👩‍🏫 Acompañamiento inmediato</button>
+    <button class="seguridad" onclick="alert('Verificando enlaces y mensajes sospechosos...')">🛡️ Seguridad y Antifraude</button>
+    
+    <button style="background:#95A5A6;" onclick="volverInicio()">⬅️ Volver al inicio</button>
+    <p class="footer">Universidad Católica de Colombia<br>Paula Rojas & Jaime Roca – 2025</p>
+  </div>
+  
+</div>
+
+<script>
+function mostrarMenu() {
+  document.getElementById('inicio').classList.remove('active');
+  document.getElementById('menu').classList.add('active');
+}
+function volverInicio() {
+  document.getElementById('menu').classList.remove('active');
+  document.getElementById('inicio').classList.add('active');
+}
+</script>
+"""
+
+display(HTML(html))
