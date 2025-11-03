@@ -2,25 +2,25 @@ from IPython.display import HTML, display
 
 html = """
 <style>
-/* --- Estilo general tipo app móvil --- */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4faff;
+  background-color: #e8f1ff;
   margin: 0;
   padding: 0;
 }
 .app-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 470px;
   margin: 0 auto;
   background-color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  border-radius: 28px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   overflow: hidden;
+  padding-bottom: 20px;
 }
 .screen {
   display: none;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
 }
 .active {
@@ -31,81 +31,159 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+h1, h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color:#1a4fa8;
+}
+p { font-size: 22px; }
+
 button {
   display: block;
   width: 100%;
-  padding: 18px;
+  padding: 22px;
   border: none;
-  border-radius: 16px;
-  font-size: 20px;
+  border-radius: 20px;
+  font-size: 26px;
+  font-weight: bold;
   color: white;
-  margin: 10px 0;
+  margin: 14px 0;
   cursor: pointer;
   transition: transform 0.2s;
 }
-button:active {
-  transform: scale(0.97);
-}
+button:active { transform: scale(0.96); }
+
 .big-red {
   background-color: #C0392B;
-  font-size: 28px;
-  padding: 28px;
-  margin-top: 180px;
-  border-radius: 22px;
-  font-weight: bold;
+  font-size: 34px;
+  padding: 35px;
+  border-radius: 24px;
+  margin-top: 150px;
 }
+
 .tramite { background-color: #2E86C1; }
-.familia { background-color: #1ABC9C; }
-.recordar { background-color: #F39C12; }
-.mentor { background-color: #9B59B6; }
-.seguridad { background-color: #E74C3C; }
+.familia { background-color: #16A085; }
+.recordar { background-color: #E67E22; }
+.mentor { background-color: #8E44AD; }
+.seguridad { background-color: #C0392B; }
+.volver { background:#7f8c8d; }
 
 .footer {
-  font-size: 12px;
-  color: #555;
-  margin-top: 16px;
+  font-size: 16px;
+  color: #333;
+  margin-top: 18px;
+}
+
+.step-box {
+  text-align: left;
+  font-size: 26px;
+  background:#dff0ff;
+  padding:22px;
+  margin:18px 0;
+  border-radius:22px;
+  border-left: 12px solid #1A73E8;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #000;
+}
+
+.icon{
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* Botón de lectura */
+.read-btn {
+  background:#0a66c2;
+  font-size:24px;
+  margin-top:12px;
 }
 </style>
 
 <div class="app-container">
-  
-  <!-- Pantalla de inicio -->
-  <div id="inicio" class="screen active">
-    <h2 style="margin-top:40px;">👴 Bienvenido a</h2>
-    <h1 style="color:#2E86C1;">Mentor Digital Acompañado (MDA)</h1>
-    <p style="font-size:16px;color:#333;margin:10px 20px;">
-      Tu aplicación de ayuda y acompañamiento digital para adultos mayores.
-    </p>
-    <button class="big-red" onclick="mostrarMenu()">🆘 AYUDA MAYOR</button>
-    <p class="footer">Universidad Católica de Colombia<br>Paula Rojas & Jaime Roca – 2025</p>
-  </div>
-  
-  <!-- Menú principal -->
-  <div id="menu" class="screen">
-    <img src="https://cdn-icons-png.flaticon.com/512/2722/2722066.png" width="100" style="margin-top:10px;">
-    <h2 style="color:#2E86C1;">MENÚ PRINCIPAL</h2>
-    <p style="color:#444;">Selecciona lo que necesitas:</p>
-    
-    <button class="tramite" onclick="alert('Tu mentor te guiará paso a paso para realizar el trámite o pago.')">💳 Hacer un trámite o pago</button>
-    <button class="familia" onclick="alert('Conectando videollamada con tu familia (simulación).')">📞 Comunicarme con mi familia</button>
-    <button class="recordar" onclick="alert('Recordatorio de cita médica o medicamento activado.')">💊 Recordar cita o medicamento</button>
-    <button class="mentor" onclick="alert('Tu Mentor Digital está disponible. Iniciando acompañamiento inmediato.')">👩‍🏫 Acompañamiento inmediato</button>
-    <button class="seguridad" onclick="alert('Verificando enlaces y mensajes sospechosos...')">🛡️ Seguridad y Antifraude</button>
-    
-    <button style="background:#95A5A6;" onclick="volverInicio()">⬅️ Volver al inicio</button>
-    <p class="footer">Universidad Católica de Colombia<br>Paula Rojas & Jaime Roca – 2025</p>
-  </div>
-  
+
+<div id="inicio" class="screen active">
+  <div class="icon">👴</div>
+  <h1>Mentor Digital Acompañado</h1>
+  <p>Aplicación de apoyo para adultos mayores</p>
+  <button class="big-red" onclick="mostrar('menu')">🆘 Pedir Ayuda</button>
+  <p class="footer"><b>Universidad Católica de Colombia</b><br>Paula Rojas & Jaime Roca – 2025</p>
+</div>
+
+<div id="menu" class="screen">
+  <h2>Menú de ayuda</h2>
+  <button class="tramite" onclick="mostrar('tramite')">💳 Trámites o pagos</button>
+  <button class="familia" onclick="mostrar('familia')">📞 Hablar con mi familia</button>
+  <button class="recordar" onclick="mostrar('recordar')">💊 Recordatorios de salud</button>
+  <button class="mentor" onclick="mostrar('mentor')">👩‍🏫 Acompañamiento</button>
+  <button class="seguridad" onclick="mostrar('seguridad')">🛡️ Seguridad digital</button>
+  <button class="volver" onclick="mostrar('inicio')">⬅️ Volver</button>
+</div>
+
+<!-- 📢 Función de pasos + lectura -->
+<div id="tramite" class="screen">
+  <h2>💳 Trámites o pagos</h2>
+  <div class="step-box">1️⃣ Entra a la página oficial del banco o entidad.</div>
+  <div class="step-box">2️⃣ Presiona "Ingresar".</div>
+  <div class="step-box">3️⃣ Escribe tu usuario y clave.</div>
+  <div class="step-box">4️⃣ Busca "Pagos" o "Trámites".</div>
+  <div class="step-box">5️⃣ Sigue las instrucciones en la pantalla.</div>
+  <button class="read-btn" onclick="leerPasos('tramite')">🔊 Escuchar pasos</button>
+  <button class="volver" onclick="mostrar('menu')">⬅️ Volver</button>
+</div>
+
+<div id="familia" class="screen">
+  <h2>📞 Llamar a mi familia</h2>
+  <div class="step-box">1️⃣ Abre WhatsApp.</div>
+  <div class="step-box">2️⃣ Busca el contacto.</div>
+  <div class="step-box">3️⃣ Presiona 📞 o 🎥 para videollamada.</div>
+  <button class="read-btn" onclick="leerPasos('familia')">🔊 Escuchar pasos</button>
+  <button class="volver" onclick="mostrar('menu')">⬅️ Volver</button>
+</div>
+
+<div id="recordar" class="screen">
+  <h2>💊 Recordatorio de salud</h2>
+  <div class="step-box">1️⃣ Abre calendario o alarma.</div>
+  <div class="step-box">2️⃣ Elige fecha / hora.</div>
+  <div class="step-box">3️⃣ Activa notificación.</div>
+  <button class="read-btn" onclick="leerPasos('recordar')">🔊 Escuchar pasos</button>
+  <button class="volver" onclick="mostrar('menu')">⬅️ Volver</button>
+</div>
+
+<div id="mentor" class="screen">
+  <h2>👩‍🏫 Acompañamiento</h2>
+  <div class="step-box">1️⃣ Diga su duda con calma.</div>
+  <div class="step-box">2️⃣ Reciba instrucciones paso a paso.</div>
+  <button class="read-btn" onclick="leerPasos('mentor')">🔊 Escuchar pasos</button>
+  <button class="volver" onclick="mostrar('menu')">⬅️ Volver</button>
+</div>
+
+<div id="seguridad" class="screen">
+  <h2>🛡️ Seguridad</h2>
+  <div class="step-box">❌ No abra mensajes desconocidos.</div>
+  <div class="step-box">🔒 No comparta su clave.</div>
+  <div class="step-box">✅ Revise que la página tenga https://</div>
+  <button class="read-btn" onclick="leerPasos('seguridad')">🔊 Escuchar pasos</button>
+  <button class="volver" onclick="mostrar('menu')">⬅️ Volver</button>
+</div>
+
 </div>
 
 <script>
-function mostrarMenu() {
-  document.getElementById('inicio').classList.remove('active');
-  document.getElementById('menu').classList.add('active');
+function mostrar(pantalla) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(pantalla).classList.add('active');
+  speechSynthesis.cancel(); // Detener voz si vuelve atrás
 }
-function volverInicio() {
-  document.getElementById('menu').classList.remove('active');
-  document.getElementById('inicio').classList.add('active');
+
+function leerPasos(pantalla) {
+  speechSynthesis.cancel();
+  let text = "";
+  document.querySelectorAll("#" + pantalla + " .step-box").forEach(e => text += e.innerText + ". ");
+  let utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "es-ES";
+  utter.rate = 0.9; 
+  speechSynthesis.speak(utter);
 }
 </script>
 """
